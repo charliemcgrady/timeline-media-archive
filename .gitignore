@@ -1,0 +1,12 @@
+.DS_Store
+pgdata
+node_modules
+dist
+yarn-error.log
+yarn.lock
+terrafor*
+.terraform
+credentials
+infrastructure/assets/credentials*
+infrastructure/*_override.tf.json
+.env

@@ -1,0 +1,1 @@
+This is a test script which is the precursor to our config generator. `test-story-out.json` mimics the cloudfront scripts that will be uploaded to cloudfront.

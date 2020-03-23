@@ -1,0 +1,37 @@
+{
+  "name": "serverless-workflows",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^4.1.0",
+    "@google-cloud/vision": "^1.5.0",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/d3": "^5.7.2",
+    "@types/node": "^12.11.7",
+    "@types/node-fetch": "^2.5.2",
+    "@types/sharp": "^0.23.0",
+    "exif-reader": "^1.0.3",
+    "aws-sdk": "^2.556.0",
+    "d3-color": "^1.4.0",
+    "node-fetch": "^2.6.0",
+    "sharp": "^0.23.2",
+    "ts-exif-parser": "^0.1.4",
+    "ts-loader": "^6.2.1",
+    "webpack-node-externals": "^1.7.2",
+    "unzipper": "^0.10.5"
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules && rm -rf dist",
+    "build:dev": "./node_modules/webpack-cli/bin/cli.js --config webpack/webpack.dev.config.js",
+    "build:prod": "npm run clean && npm install && ./node_modules/webpack-cli/bin/cli.js --config webpack/webpack.prod.config.js",
+    "start:dev": "tsc -w --preserveWatchOutput",
+    "test": "rm -rf ./tmp && node ./src/main.test.js"
+  }
+}

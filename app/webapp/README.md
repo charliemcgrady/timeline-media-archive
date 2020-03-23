@@ -1,0 +1,2 @@
+### Deploying assets
+There are two environment variables which tell node-server how to vend assets - ASSETS_URL_CSS and ASSETS_URL_JS. These variables are the cloudfront url where the assets are hosted, and then the relative filepath outputed by webpack during production builds (e.g. /static/js/main.123.js).
