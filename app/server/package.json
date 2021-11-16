@@ -9,7 +9,7 @@
     "@types/node-fetch": "^2.5.3",
     "@types/pug": "^2.0.4",
     "@types/uuid": "^3.4.5",
-    "aws-sdk": "^2.556.0",
+    "aws-sdk": "^2.814.0",
     "knex": "^0.19.4",
     "koa": "^2.8.2",
     "koa-bodyparser": "^4.2.1",
