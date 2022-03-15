@@ -15,7 +15,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-combine-routers": "^4.0.2",
     "koa-router": "^7.4.0",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "node-fetch": "^2.6.0",
     "pg": "^7.12.1",
     "uuid": "^3.3.3"
