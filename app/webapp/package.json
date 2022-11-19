@@ -48,7 +48,7 @@
     "react-geosuggest": "^2.12.1",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
-    "react-scripts-ts": "3.1.0",
+    "react-scripts-ts": "4.0.8",
     "react-sortable-hoc": "^1.11.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
