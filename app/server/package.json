@@ -10,7 +10,7 @@
     "@types/pug": "^2.0.4",
     "@types/uuid": "^3.4.5",
     "aws-sdk": "^2.556.0",
-    "knex": "^0.19.4",
+    "knex": "^2.4.0",
     "koa": "^2.8.2",
     "koa-bodyparser": "^4.2.1",
     "koa-combine-routers": "^4.0.2",
