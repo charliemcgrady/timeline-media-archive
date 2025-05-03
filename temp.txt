@@ -1,0 +1,1007 @@
+diff --git a/app/webapp/src/Routes.tsx b/app/webapp/src/Routes.tsx
+index 75f5cc9..bcb75e0 100644
+--- a/app/webapp/src/Routes.tsx
++++ b/app/webapp/src/Routes.tsx
+@@ -23,59 +23,41 @@ import GigapixelPhotosMedia from "./components/profile/media/hoc/GigapixelPhotos
+ 
+ export default () => (
+   <Router>
+-    <ScrollToTop>
+-      <Switch>
+-        <Route
+-          path="/profile/media/photosphere/upload"
+-          component={UploadPhotospheres}
+-        />
+-        <Route
+-          path="/profile/media/gigapixel-photo/upload"
+-          component={UploadGigapixelPhotos}
+-        />
+-        <Route path="/profile/media/photo/upload" component={UploadPhotos} />
++    <Switch>
++      <Route
++        path="/profile/media/photosphere/upload"
++        component={UploadPhotospheres}
++      />
++      <Route
++        path="/profile/media/gigapixel-photo/upload"
++        component={UploadGigapixelPhotos}
++      />
++      <Route path="/profile/media/photo/upload" component={UploadPhotos} />
+ 
+-        <Route path="/media/*" component={ViewMedia} />
++      <Route path="/media/*" component={ViewMedia} />
+ 
+-        <Route path="/stories/:id" component={ViewStory} />
++      <Route path="/stories/:id" component={ViewStory} />
+ 
+-        <Route path="/profile/media/photos" component={PhotosMedia} />
+-        <Route
+-          path="/profile/media/gigapixel-photos"
+-          component={GigapixelPhotosMedia}
+-        />
+-        <Route
+-          path="/profile/media/photospheres"
+-          component={PhotosphereMedia}
+-        />
+-        <Route path="/profile/media/:id" component={EditMedia} />
+-        <Route
+-          path="/profile/stories/:storyId/:widgetId"
+-          component={EditWidget}
+-        />
+-        <Route path="/profile/stories/:id" component={EditStory} />
+-        <Route path="/profile/stories" component={EditStories} />
+-        <Route path="/profile/media" component={PhotosMedia} />
+-        <Route path="/profile/tags" component={EditTags} />
+-        <Route path="/profile/routes" component={EditRoute} />
+-        <Route path="/profile" component={Profile} />
++      <Route path="/profile/media/photos" component={PhotosMedia} />
++      <Route
++        path="/profile/media/gigapixel-photos"
++        component={GigapixelPhotosMedia}
++      />
++      <Route path="/profile/media/photospheres" component={PhotosphereMedia} />
++      <Route path="/profile/media/:id" component={EditMedia} />
++      <Route
++        path="/profile/stories/:storyId/:widgetId"
++        component={EditWidget}
++      />
++      <Route path="/profile/stories/:id" component={EditStory} />
++      <Route path="/profile/stories" component={EditStories} />
++      <Route path="/profile/media" component={PhotosMedia} />
++      <Route path="/profile/tags" component={EditTags} />
++      <Route path="/profile/routes" component={EditRoute} />
++      <Route path="/profile" component={Profile} />
+ 
+-        <Route path="/" component={ViewMedia} />
+-        <Route component={ViewMedia} />
+-      </Switch>
+-    </ScrollToTop>
++      <Route path="/" component={ViewMedia} />
++      <Route component={ViewMedia} />
++    </Switch>
+   </Router>
+ );
+-
+-const ScrollToTop = withRouter(({ history, children }) => {
+-  useEffect(() => {
+-    const unlisten = history.listen(() => {
+-      window.scrollTo(0, 0);
+-    });
+-    return () => {
+-      unlisten();
+-    };
+-  }, []);
+-
+-  return <Fragment>{children}</Fragment>;
+-});
+diff --git a/app/webapp/src/components/media/ViewMediaContainer.tsx b/app/webapp/src/components/media/ViewMediaContainer.tsx
+index 1bcc262..bee03b8 100644
+--- a/app/webapp/src/components/media/ViewMediaContainer.tsx
++++ b/app/webapp/src/components/media/ViewMediaContainer.tsx
+@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
+ import { AppState } from "~/redux/store";
+ import { mediaActions, storiesActions } from "~/redux/actions";
+ import LoadingSpinner from "../pure/affordances/LoadingSpinner";
+-import ViewMediaAsFeed from "./view/as-feed/ViewMediaAsFeed";
+-import ViewMediaAsMap from "./view/as-map/ViewMediaAsMap";
++import MediaFeed from "./view/feed/MediaFeed";
++import BrowseMediaView from "./view/browser/MediaBrowser";
+ import { useAppliedFilter } from "~/redux/media-filter/useAppliedFilter";
+ import { useMediaView } from "./useMediaView";
+-import ViewMediaAsSearchPage from "./view/as-search/ViewMediaAsSearchPage";
+ import { ViewType } from "./view-type";
+ 
+ const ViewMediaContainer: FunctionComponent<{}> = ({}) => {
+@@ -45,19 +44,12 @@ const ViewMediaContainer: FunctionComponent<{}> = ({}) => {
+       {!fetchMediaLoading && !fetchStoriesLoading && (
+         <>
+           <>
+-            {viewType.toString() === ViewType.MAP.toString() && (
+-              <ViewMediaAsMap />
++            {viewType.toString() === ViewType.BROWSER.toString() && (
++              <BrowseMediaView />
+             )}
+           </>
+           <>
+-            {viewType.toString() === ViewType.FEED.toString() && (
+-              <ViewMediaAsFeed />
+-            )}
+-          </>
+-          <>
+-            {viewType.toString() === ViewType.SEARCH.toString() && (
+-              <ViewMediaAsSearchPage />
+-            )}
++            {viewType.toString() === ViewType.FEED.toString() && <MediaFeed />}
+           </>
+         </>
+       )}
+diff --git a/app/webapp/src/components/media/useMediaView.ts b/app/webapp/src/components/media/useMediaView.ts
+index 73403f8..da2261f 100644
+--- a/app/webapp/src/components/media/useMediaView.ts
++++ b/app/webapp/src/components/media/useMediaView.ts
+@@ -4,10 +4,8 @@ import { ViewType } from "./view-type";
+ export const useMediaView = () => {
+   const location = useLocation();
+   if (location.pathname === "/media/map") {
+-    return ViewType.MAP;
++    return ViewType.BROWSER;
+   } else if (location.pathname === "/media/feed") {
+     return ViewType.FEED;
+-  } else if (location.pathname === "/media/search") {
+-    return ViewType.SEARCH;
+-  } else return ViewType.SEARCH;
++  } else return ViewType.BROWSER;
+ };
+diff --git a/app/webapp/src/components/media/view-type.ts b/app/webapp/src/components/media/view-type.ts
+index fd9da28..1a306c4 100644
+--- a/app/webapp/src/components/media/view-type.ts
++++ b/app/webapp/src/components/media/view-type.ts
+@@ -1,5 +1,4 @@
+ export enum ViewType {
+   FEED,
+-  MAP,
+-  SEARCH
++  BROWSER
+ }
+diff --git a/app/webapp/src/components/media/view/ViewStoryBubbles.tsx b/app/webapp/src/components/media/view/ViewStoryBubbles.tsx
+index 7372c3a..5c1e197 100644
+--- a/app/webapp/src/components/media/view/ViewStoryBubbles.tsx
++++ b/app/webapp/src/components/media/view/ViewStoryBubbles.tsx
+@@ -46,7 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
+     },
+     storyBubblesLabel: {
+       textAlign: "left",
+-      marginBottom: theme.spacing(1)
++      marginBottom: theme.spacing(1),
++      paddingLeft: theme.spacing(1),
++      paddingRight: theme.spacing(1)
+     }
+   })
+ );
+@@ -77,52 +79,60 @@ const ViewStoryBubbles: FunctionComponent<{
+     });
+   const classes = useStyles();
+   return (
+-    <div className={classes.root}>
+-      {mediaView.toString() === ViewType.MAP.toString() &&
+-        storiesToDisplay.length > 0 && (
+-          <div className={classes.storyBubblesLabel}>
+-            <Typography color="textSecondary" display="block" variant="caption">
+-              Stories
+-            </Typography>
+-            <Divider />
+-          </div>
+-        )}
+-      <div className={classes.storyBubbles}>
+-        <div
+-          style={{
+-            width: storyBubbleWidth * storiesToDisplay.length,
+-            margin: "auto"
+-          }}
+-        >
+-          {storiesToDisplay.map(id => (
++    <>
++      {storiesToDisplay.length > 0 && (
++        <div className={classes.root}>
++          {mediaView.toString() === ViewType.BROWSER.toString() &&
++            storiesToDisplay.length > 0 && (
++              <div className={classes.storyBubblesLabel}>
++                <Typography
++                  color="textSecondary"
++                  display="block"
++                  variant="caption"
++                >
++                  Appears In
++                </Typography>
++                <Divider />
++              </div>
++            )}
++          <div className={classes.storyBubbles}>
+             <div
+-              key={id}
+-              className={classes.storyBubble}
+-              onClick={() => onClick(id)}
++              style={{
++                width: storyBubbleWidth * storiesToDisplay.length,
++                margin: "auto"
++              }}
+             >
+-              <div
+-                style={{
+-                  opacity:
+-                    appliedFilter.activeStory &&
+-                    appliedFilter.activeStory.id !== id
+-                      ? 0.5
+-                      : 1
+-                }}
+-              >
+-                <Avatar
+-                  className={classes.avatar}
+-                  src={buildImageUrl(
+-                    Object.keys(stories[id].media)[0],
+-                    Size.Small
+-                  )}
+-                />
+-              </div>
+-              {stories[id].title}
++              {storiesToDisplay.map(id => (
++                <div
++                  key={id}
++                  className={classes.storyBubble}
++                  onClick={() => onClick(id)}
++                >
++                  <div
++                    style={{
++                      opacity:
++                        appliedFilter.activeStory &&
++                        appliedFilter.activeStory.id !== id
++                          ? 0.5
++                          : 1
++                    }}
++                  >
++                    <Avatar
++                      className={classes.avatar}
++                      src={buildImageUrl(
++                        Object.keys(stories[id].media)[0],
++                        Size.Small
++                      )}
++                    />
++                  </div>
++                  {stories[id].title}
++                </div>
++              ))}
+             </div>
+-          ))}
++          </div>
+         </div>
+-      </div>
+-    </div>
++      )}
++    </>
+   );
+ };
+ 
+diff --git a/app/webapp/src/components/media/view/as-map/nav/ViewMediaAsMapNav.tsx b/app/webapp/src/components/media/view/as-map/nav/ViewMediaAsMapNav.tsx
+deleted file mode 100644
+index 8ed5b9b..0000000
+--- a/app/webapp/src/components/media/view/as-map/nav/ViewMediaAsMapNav.tsx
++++ /dev/null
+@@ -1,56 +0,0 @@
+-import React from "react";
+-import { Button, Tooltip } from "@material-ui/core";
+-import NavBar from "~/components/pure/affordances/NavBar";
+-import { RouteComponentProps, withRouter } from "react-router-dom";
+-import { useAppliedFilter } from "~/redux/media-filter/useAppliedFilter";
+-import { useIsDesktop } from "~/components/media/useIsDesktop";
+-import Logo from "~/components/pure/affordances/Logo";
+-import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
+-
+-interface Props extends RouteComponentProps<{}> {}
+-
+-const ViewMediaAsMapNav: React.FunctionComponent<Props> = ({
+-  history,
+-  children
+-}) => {
+-  const { appliedFilter } = useAppliedFilter();
+-  const isDesktop = useIsDesktop();
+-
+-  return (
+-    <NavBar
+-      leftSlot={<Logo />}
+-      rightSlot={
+-        <Tooltip
+-          title={
+-            appliedFilter.activeMediaId && isDesktop
+-              ? "View In Feed"
+-              : "View Feed"
+-          }
+-        >
+-          <Button
+-            color="inherit"
+-            onClick={() => {
+-              if (!isDesktop) {
+-                window.location.pathname = "/";
+-              } else {
+-                history.push(
+-                  // Due to a difficult to trace scrolling bug in IOS Safari, don't allow direct
+-                  // linking from the map page to the feed
+-                  appliedFilter.activeMediaId
+-                    ? `/?activeMediaId=${appliedFilter.activeMediaId}`
+-                    : "/"
+-                );
+-              }
+-            }}
+-          >
+-            <DynamicFeedIcon />
+-          </Button>
+-        </Tooltip>
+-      }
+-    >
+-      {children}
+-    </NavBar>
+-  );
+-};
+-
+-export default withRouter(ViewMediaAsMapNav);
+diff --git a/app/webapp/src/components/media/view/as-search/ViewMediaAsSearchPage.tsx b/app/webapp/src/components/media/view/as-search/ViewMediaAsSearchPage.tsx
+deleted file mode 100644
+index d2e3205..0000000
+--- a/app/webapp/src/components/media/view/as-search/ViewMediaAsSearchPage.tsx
++++ /dev/null
+@@ -1,18 +0,0 @@
+-import React, { FunctionComponent } from "react";
+-
+-// const useStyles = makeStyles((theme: Theme) =>
+-//   createStyles({
+-//     rightPanel: {
+-//       marginTop: theme.spacing(2)
+-//     }
+-//   })
+-// );
+-
+-const ViewMediaAsSearchPage: FunctionComponent<{}> = ({}) => {
+-  // const classes = useStyles();
+-  // const isDesktop = useIsDesktop();
+-
+-  return <div>Hello search page!</div>;
+-};
+-
+-export default ViewMediaAsSearchPage;
+diff --git a/app/webapp/src/components/media/view/as-map/ViewMediaAsMap.tsx b/app/webapp/src/components/media/view/browser/MediaBrowser.tsx
+similarity index 81%
+rename from app/webapp/src/components/media/view/as-map/ViewMediaAsMap.tsx
+rename to app/webapp/src/components/media/view/browser/MediaBrowser.tsx
+index ecb9a66..e192597 100644
+--- a/app/webapp/src/components/media/view/as-map/ViewMediaAsMap.tsx
++++ b/app/webapp/src/components/media/view/browser/MediaBrowser.tsx
+@@ -1,7 +1,7 @@
+ import React, { FunctionComponent } from "react";
+ import ViewMediaPanel from "./ViewMediaPanel";
+ import LocationFilter from "./filters/location/LocationFilter";
+-import ViewMediaAsMapNav from "./nav/ViewMediaAsMapNav";
++import BrowseMediaNav from "./nav/BrowseMediaNav";
+ import { useMapPageLayout } from "./useMapPageLayout";
+ import { makeStyles, Theme, createStyles } from "@material-ui/core";
+ import MapResults from "./results/MapResults";
+@@ -15,22 +15,22 @@ const useStyles = makeStyles((theme: Theme) =>
+   })
+ );
+ 
+-const ViewMediaAsMap: FunctionComponent<{}> = ({}) => {
++const BrowseMediaView: FunctionComponent<{}> = ({}) => {
+   const layout = useMapPageLayout();
+   const classes = useStyles();
+   const isDesktop = useIsDesktop();
+ 
+   return (
+-    <ViewMediaAsMapNav>
++    <BrowseMediaNav>
++      <div style={layout.rightPanel} className={classes.rightPanel}>
++        <ViewMediaPanel />
++      </div>
+       <div style={layout.leftPanel}>
+         <LocationFilter />
+         {isDesktop && <MapResults />}
+       </div>
+-      <div style={layout.rightPanel} className={classes.rightPanel}>
+-        <ViewMediaPanel />
+-      </div>
+-    </ViewMediaAsMapNav>
++    </BrowseMediaNav>
+   );
+ };
+ 
+-export default ViewMediaAsMap;
++export default BrowseMediaView;
+diff --git a/app/webapp/src/components/media/view/as-map/ViewMediaPanel.tsx b/app/webapp/src/components/media/view/browser/ViewMediaPanel.tsx
+similarity index 98%
+rename from app/webapp/src/components/media/view/as-map/ViewMediaPanel.tsx
+rename to app/webapp/src/components/media/view/browser/ViewMediaPanel.tsx
+index 00134ff..5f1d7aa 100644
+--- a/app/webapp/src/components/media/view/as-map/ViewMediaPanel.tsx
++++ b/app/webapp/src/components/media/view/browser/ViewMediaPanel.tsx
+@@ -41,7 +41,6 @@ const ViewMediaPanel: FunctionComponent<{}> = () => {
+         mediaNavRef.current.scrollIntoView();
+       } else {
+         mediaNavRef.current.scrollIntoView();
+-        window.scrollTo(0, 0);
+       }
+     }
+     activeMediaIdRef.current = appliedFilter.activeMediaId;
+diff --git a/app/webapp/src/components/media/view/as-map/filters/location/LocationFilter.tsx b/app/webapp/src/components/media/view/browser/filters/location/LocationFilter.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-map/filters/location/LocationFilter.tsx
+rename to app/webapp/src/components/media/view/browser/filters/location/LocationFilter.tsx
+diff --git a/app/webapp/src/components/media/view/as-map/filters/location/LocationFilterFab.tsx b/app/webapp/src/components/media/view/browser/filters/location/LocationFilterFab.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-map/filters/location/LocationFilterFab.tsx
+rename to app/webapp/src/components/media/view/browser/filters/location/LocationFilterFab.tsx
+diff --git a/app/webapp/src/components/media/view/as-map/filters/time/CalendarInputs.tsx b/app/webapp/src/components/media/view/browser/filters/time/CalendarInputs.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-map/filters/time/CalendarInputs.tsx
+rename to app/webapp/src/components/media/view/browser/filters/time/CalendarInputs.tsx
+diff --git a/app/webapp/src/components/media/view/as-map/filters/time/TimeFilter.tsx b/app/webapp/src/components/media/view/browser/filters/time/TimeFilter.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-map/filters/time/TimeFilter.tsx
+rename to app/webapp/src/components/media/view/browser/filters/time/TimeFilter.tsx
+diff --git a/app/webapp/src/components/media/view/as-map/filters/time/TimeSlider.ts b/app/webapp/src/components/media/view/browser/filters/time/TimeSlider.ts
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-map/filters/time/TimeSlider.ts
+rename to app/webapp/src/components/media/view/browser/filters/time/TimeSlider.ts
+diff --git a/app/webapp/src/components/media/view/as-map/filters/time/TimeSliderInstructions.tsx b/app/webapp/src/components/media/view/browser/filters/time/TimeSliderInstructions.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-map/filters/time/TimeSliderInstructions.tsx
+rename to app/webapp/src/components/media/view/browser/filters/time/TimeSliderInstructions.tsx
+diff --git a/app/webapp/src/components/media/view/browser/nav/BrowseMediaNav.tsx b/app/webapp/src/components/media/view/browser/nav/BrowseMediaNav.tsx
+new file mode 100644
+index 0000000..5a01e59
+--- /dev/null
++++ b/app/webapp/src/components/media/view/browser/nav/BrowseMediaNav.tsx
+@@ -0,0 +1,56 @@
++import React from "react";
++// import { Button, Tooltip } from "@material-ui/core";
++import NavBar from "~/components/pure/affordances/NavBar";
++import { RouteComponentProps, withRouter } from "react-router-dom";
++// import { useAppliedFilter } from "~/redux/media-filter/useAppliedFilter";
++// import { useIsDesktop } from "~/components/media/useIsDesktop";
++import Logo from "~/components/pure/affordances/Logo";
++// import DynamicFeedIcon from "@material-ui/icons/DynamicFeed";
++
++interface Props extends RouteComponentProps<{}> {}
++
++const BrowseMediaNav: React.FunctionComponent<Props> = ({
++  // history,
++  children
++}) => {
++  return <NavBar leftSlot={<Logo />}>{children}</NavBar>;
++  // Nav bar with feed
++  //
++  // return (
++  //   <NavBar
++  //     leftSlot={<Logo />}
++  //     rightSlot={
++  //       <Tooltip
++  //         title={
++  //           appliedFilter.activeMediaId && isDesktop
++  //             ? "View In Feed"
++  //             : "View Feed"
++  //         }
++  //       >
++  //         <Button
++  //           color="inherit"
++  //           onClick={() => {
++  //             if (!isDesktop) {
++  //               window.location.pathname = "/";
++  //             } else {
++  //               history.push(
++  //                 // Due to a difficult to trace scrolling bug in IOS Safari, don't allow direct
++  //                 // linking from the map page to the feed
++  //                 appliedFilter.activeMediaId
++  //                   ? `/?activeMediaId=${appliedFilter.activeMediaId}`
++  //                   : "/"
++  //               );
++  //             }
++  //           }}
++  //         >
++  //           <DynamicFeedIcon />
++  //         </Button>
++  //       </Tooltip>
++  //     }
++  //   >
++  //     {children}
++  //   </NavBar>
++  // );
++};
++
++export default withRouter(BrowseMediaNav);
+diff --git a/app/webapp/src/components/media/view/as-map/nav/NavigateMedia.tsx b/app/webapp/src/components/media/view/browser/nav/NavigateMedia.tsx
+similarity index 72%
+rename from app/webapp/src/components/media/view/as-map/nav/NavigateMedia.tsx
+rename to app/webapp/src/components/media/view/browser/nav/NavigateMedia.tsx
+index cbe7668..b88afcc 100644
+--- a/app/webapp/src/components/media/view/as-map/nav/NavigateMedia.tsx
++++ b/app/webapp/src/components/media/view/browser/nav/NavigateMedia.tsx
+@@ -2,13 +2,7 @@ import React, { useEffect } from "react";
+ import { useAppliedFilter } from "~/redux/media-filter/useAppliedFilter";
+ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+-import {
+-  makeStyles,
+-  Theme,
+-  createStyles,
+-  Grid,
+-  Tooltip
+-} from "@material-ui/core";
++import { makeStyles, Theme, createStyles, Tooltip } from "@material-ui/core";
+ import { buildImageUrl, Size } from "~/rgb-commons/util/mediaUrls";
+ import {
+   photosToPhotoswipeItems,
+@@ -39,6 +33,26 @@ const useStyles = makeStyles((theme: Theme) => {
+     activeImage: {
+       maxWidth: 200,
+       height: "auto"
++    },
++    leftArrow: {
++      position: "fixed",
++      top: "50%",
++      left: 40,
++      transform: "translate(-50%, -50%)",
++      color: "white",
++      zIndex: 1000
++    },
++    rightArrow: {
++      position: "fixed",
++      top: "50%",
++      right: -22,
++      transform: "translate(-50%, -50%)",
++      color: "white",
++      zIndex: 1000
++    },
++    selectedImageWrapper: {
++      width: "100%",
++      textAlign: "center"
+     }
+   });
+ });
+@@ -101,21 +115,33 @@ const MediaNavigationArrows: React.FunctionComponent<{}> = () => {
+   return (
+     <>
+       {appliedFilter.activeMediaId && (
+-        <Grid container className={classes.root}>
+-          <Tooltip title="Previous photo in time (tip: use arrow keys)">
+-            <Grid item xs={1}>
+-              <ArrowBackIosIcon
+-                color="primary"
+-                fontSize="large"
+-                className={classes.icon}
+-                onClick={incrementActiveMediaId}
+-              />
+-            </Grid>
++        <>
++          <Tooltip
++            title="Previous photo in time (tip: use arrow keys)"
++            className={classes.leftArrow}
++          >
++            <ArrowBackIosIcon
++              color="primary"
++              fontSize="large"
++              className={classes.icon}
++              onClick={incrementActiveMediaId}
++            />
++          </Tooltip>
++          <Tooltip
++            title="Next photo in time (tip: use arrow keys)"
++            className={classes.rightArrow}
++          >
++            <ArrowForwardIosIcon
++              color="primary"
++              fontSize="large"
++              onClick={decrementActiveMediaId}
++              className={classes.icon}
++            />
+           </Tooltip>
+-          <Grid item xs={10} className={classes.activeImageWrapper}>
++          <div className={classes.selectedImageWrapper}>
+             <img
+               style={{ cursor: "pointer" }}
+-              src={buildImageUrl(appliedFilter.activeMediaId, Size.Small)}
++              src={buildImageUrl(appliedFilter.activeMediaId, Size.Medium)}
+               className={`${classes.activeImage}`}
+               onClick={() => {
+                 const { items, startingIndex } = photosToPhotoswipeItems(
+@@ -127,18 +153,8 @@ const MediaNavigationArrows: React.FunctionComponent<{}> = () => {
+                 });
+               }}
+             />
+-          </Grid>
+-          <Grid item xs={1}>
+-            <Tooltip title="Next photo in time (tip: use arrow keys)">
+-              <ArrowForwardIosIcon
+-                color="primary"
+-                fontSize="large"
+-                onClick={decrementActiveMediaId}
+-                className={classes.icon}
+-              />
+-            </Tooltip>
+-          </Grid>
+-        </Grid>
++          </div>
++        </>
+       )}
+     </>
+   );
+diff --git a/app/webapp/src/components/media/view/as-map/results/AllMedia.tsx b/app/webapp/src/components/media/view/browser/results/AllMedia.tsx
+similarity index 81%
+rename from app/webapp/src/components/media/view/as-map/results/AllMedia.tsx
+rename to app/webapp/src/components/media/view/browser/results/AllMedia.tsx
+index 1c733cf..030f013 100644
+--- a/app/webapp/src/components/media/view/as-map/results/AllMedia.tsx
++++ b/app/webapp/src/components/media/view/browser/results/AllMedia.tsx
+@@ -34,6 +34,14 @@ const useStyles = makeStyles((theme: Theme) =>
+       height: window.innerHeight,
+       paddingBottom: window.innerHeight,
+       overflowY: "scroll"
++    },
++    mobileTimeline: {
++      height: "auto",
++      width: window.innerWidth,
++      backgroundColor: "white",
++      position: "fixed",
++      bottom: 0,
++      zIndex: 2000
+     }
+   })
+ );
+@@ -76,15 +84,19 @@ const AllMedia: FunctionComponent<{}> = () => {
+ 
+   return (
+     <div className={classes.root}>
+-      {isDesktop && (
+-        <>
+-          <div className={classes.browseMediaDivider}>
+-            <Typography color="textSecondary" display="block" variant="caption">
+-              Timeline
+-            </Typography>
+-          </div>
+-          <Divider />
+-          {isDesktop && (
++      <>
++        {isDesktop && (
++          <>
++            <div className={classes.browseMediaDivider}>
++              <Typography
++                color="textSecondary"
++                display="block"
++                variant="caption"
++              >
++                Timeline
++              </Typography>
++            </div>
++            <Divider />
+             <Typography
+               color="textSecondary"
+               display="block"
+@@ -93,18 +105,16 @@ const AllMedia: FunctionComponent<{}> = () => {
+             >
+               <i>Click bars to select photos...</i>
+             </Typography>
+-          )}
++          </>
++        )}
++        {isDesktop ? (
+           <TimeFilter />
+-        </>
+-      )}
+-      <Typography
+-        color="textSecondary"
+-        display="block"
+-        variant="caption"
+-        className={classes.timelineInstructions}
+-      >
+-        <i>These photos are sorted chronologically ;; Tap to select</i>
+-      </Typography>
++        ) : (
++          <div className={!isDesktop && classes.mobileTimeline}>
++            <TimeFilter />
++          </div>
++        )}
++      </>
+       <div className={classes.mediaGrid} ref={mediaGridRef}>
+         {mediaIds.eligible.length > 0 && (
+           <MediaGrid
+diff --git a/app/webapp/src/components/media/view/as-map/results/MapResults.tsx b/app/webapp/src/components/media/view/browser/results/MapResults.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-map/results/MapResults.tsx
+rename to app/webapp/src/components/media/view/browser/results/MapResults.tsx
+diff --git a/app/webapp/src/components/media/view/as-map/useMapPageLayout.ts b/app/webapp/src/components/media/view/browser/useMapPageLayout.ts
+similarity index 79%
+rename from app/webapp/src/components/media/view/as-map/useMapPageLayout.ts
+rename to app/webapp/src/components/media/view/browser/useMapPageLayout.ts
+index aeab419..cbcb2fa 100644
+--- a/app/webapp/src/components/media/view/as-map/useMapPageLayout.ts
++++ b/app/webapp/src/components/media/view/browser/useMapPageLayout.ts
+@@ -9,9 +9,11 @@ export const useMapPageLayout = () => {
+   const navHeight = 48;
+ 
+   const leftPanel = {
+-    float: "left",
+-    height: isDesktop ? window.innerHeight - navHeight : window.innerHeight / 2,
+-    width: isDesktop ? (6.5 * window.innerWidth) / 10 : window.innerWidth
++    float: isDesktop ? "left" : undefined,
++    position: isDesktop ? undefined : "fixed",
++    bottom: isDesktop ? undefined : 0,
++    height: isDesktop ? window.innerHeight - navHeight : window.innerHeight / 3,
++    width: isDesktop ? (6.5 * window.innerWidth) / 10 - 10 : window.innerWidth
+   };
+ 
+   const mapResultsHeight = isDesktop ? 100 : 0;
+@@ -30,7 +32,7 @@ export const useMapPageLayout = () => {
+ 
+   const rightPanel = {
+     float: "right",
+-    height: leftPanel.height,
++    height: isDesktop ? leftPanel.height : (2 * window.innerHeight) / 3,
+     width: isDesktop
+       ? window.innerWidth - leftPanel.width - 10
+       : window.innerWidth,
+diff --git a/app/webapp/src/components/media/view/as-feed/ViewMediaAsFeed.tsx b/app/webapp/src/components/media/view/feed/MediaFeed.tsx
+similarity index 81%
+rename from app/webapp/src/components/media/view/as-feed/ViewMediaAsFeed.tsx
+rename to app/webapp/src/components/media/view/feed/MediaFeed.tsx
+index 54d28cb..04cc998 100644
+--- a/app/webapp/src/components/media/view/as-feed/ViewMediaAsFeed.tsx
++++ b/app/webapp/src/components/media/view/feed/MediaFeed.tsx
+@@ -1,9 +1,9 @@
+ import React, { FunctionComponent, useEffect } from "react";
+-import ViewMediaResults from "./results/ViewMediaFeed";
++import ViewMediaFeed from "./results/ViewMediaFeed";
+ import { makeStyles, Theme, createStyles } from "@material-ui/core";
+ import ViewStoryBubbles from "../ViewStoryBubbles";
+ import { useHistory } from "react-router-dom";
+-import ViewMediaAsFeedNav from "./ViewMediaAsFeedNav";
++import ViewMediaAsFeedNav from "./MediaFeedNav";
+ import { useAppliedFilter } from "~/redux/media-filter/useAppliedFilter";
+ 
+ const useStyles = makeStyles((theme: Theme) =>
+@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
+   })
+ );
+ 
+-const ViewMediaAsFeed: FunctionComponent<{}> = () => {
++const MediaFeed: FunctionComponent<{}> = () => {
+   const history = useHistory();
+ 
+   const { setAppliedFilter } = useAppliedFilter();
+@@ -35,10 +35,10 @@ const ViewMediaAsFeed: FunctionComponent<{}> = () => {
+           }}
+           showAllStories={true}
+         />
+-        <ViewMediaResults />
++        <ViewMediaFeed />
+       </div>
+     </ViewMediaAsFeedNav>
+   );
+ };
+ 
+-export default ViewMediaAsFeed;
++export default MediaFeed;
+diff --git a/app/webapp/src/components/media/view/as-feed/ViewMediaAsFeedNav.tsx b/app/webapp/src/components/media/view/feed/MediaFeedNav.tsx
+similarity index 85%
+rename from app/webapp/src/components/media/view/as-feed/ViewMediaAsFeedNav.tsx
+rename to app/webapp/src/components/media/view/feed/MediaFeedNav.tsx
+index fc91672..9c27b87 100644
+--- a/app/webapp/src/components/media/view/as-feed/ViewMediaAsFeedNav.tsx
++++ b/app/webapp/src/components/media/view/feed/MediaFeedNav.tsx
+@@ -7,7 +7,7 @@ import { useAppliedFilter } from "~/redux/media-filter/useAppliedFilter";
+ import RoomIcon from "@material-ui/icons/Room";
+ import Logo from "~/components/pure/affordances/Logo";
+ 
+-const ViewMediaAsFeedNav: React.FunctionComponent<{}> = ({ children }) => {
++const MediaFeedNav: React.FunctionComponent<{}> = ({ children }) => {
+   const history = useHistory();
+   const { setAppliedFilter } = useAppliedFilter();
+   return (
+@@ -29,12 +29,12 @@ const ViewMediaAsFeedNav: React.FunctionComponent<{}> = ({ children }) => {
+               color="inherit"
+               onClick={() => {
+                 setAppliedFilter({ activeMediaId: undefined });
+-                history.push("/explore");
++                history.push("/media");
+               }}
+             >
+               <RoomIcon
+                 color="inherit"
+-                onClick={() => history.push("/explore")}
++                onClick={() => history.push("/media")}
+               />
+             </Button>
+           </Tooltip>
+@@ -46,4 +46,4 @@ const ViewMediaAsFeedNav: React.FunctionComponent<{}> = ({ children }) => {
+   );
+ };
+ 
+-export default ViewMediaAsFeedNav;
++export default MediaFeedNav;
+diff --git a/app/webapp/src/components/media/view/as-feed/filters/ButtonGroupFilters.tsx b/app/webapp/src/components/media/view/feed/filters/ButtonGroupFilters.tsx
+similarity index 89%
+rename from app/webapp/src/components/media/view/as-feed/filters/ButtonGroupFilters.tsx
+rename to app/webapp/src/components/media/view/feed/filters/ButtonGroupFilters.tsx
+index ef5af4e..a529a5e 100644
+--- a/app/webapp/src/components/media/view/as-feed/filters/ButtonGroupFilters.tsx
++++ b/app/webapp/src/components/media/view/feed/filters/ButtonGroupFilters.tsx
+@@ -32,14 +32,14 @@ const ButtonGroupFilters: FunctionComponent<{}> = () => {
+       <PopoverButton
+         title="Rating"
+         className={classes.filter}
+-        demphasized={mediaView.toString() === ViewType.MAP.toString()}
++        demphasized={mediaView.toString() === ViewType.BROWSER.toString()}
+       >
+         <RatingFilter />
+       </PopoverButton>
+       <PopoverButton
+         title="Date"
+         className={classes.filter}
+-        demphasized={mediaView.toString() === ViewType.MAP.toString()}
++        demphasized={mediaView.toString() === ViewType.BROWSER.toString()}
+       >
+         <DateFilter />
+       </PopoverButton>
+diff --git a/app/webapp/src/components/media/view/as-feed/filters/ResetFilters.tsx b/app/webapp/src/components/media/view/feed/filters/ResetFilters.tsx
+similarity index 94%
+rename from app/webapp/src/components/media/view/as-feed/filters/ResetFilters.tsx
+rename to app/webapp/src/components/media/view/feed/filters/ResetFilters.tsx
+index bd74f86..033f5b5 100644
+--- a/app/webapp/src/components/media/view/as-feed/filters/ResetFilters.tsx
++++ b/app/webapp/src/components/media/view/feed/filters/ResetFilters.tsx
+@@ -25,7 +25,7 @@ const ResetFilters: FunctionComponent<{}> = () => {
+           variant="contained"
+           onClick={resetAppliedFilter}
+           size={
+-            mediaView.toString() === ViewType.MAP.toString()
++            mediaView.toString() === ViewType.BROWSER.toString()
+               ? "small"
+               : "medium"
+           }
+diff --git a/app/webapp/src/components/media/view/as-feed/filters/date/DateFilter.tsx b/app/webapp/src/components/media/view/feed/filters/date/DateFilter.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-feed/filters/date/DateFilter.tsx
+rename to app/webapp/src/components/media/view/feed/filters/date/DateFilter.tsx
+diff --git a/app/webapp/src/components/media/view/as-feed/filters/rating/RatingFilter.tsx b/app/webapp/src/components/media/view/feed/filters/rating/RatingFilter.tsx
+similarity index 100%
+rename from app/webapp/src/components/media/view/as-feed/filters/rating/RatingFilter.tsx
+rename to app/webapp/src/components/media/view/feed/filters/rating/RatingFilter.tsx
+diff --git a/app/webapp/src/components/media/view/as-feed/results/ViewMediaFeed.tsx b/app/webapp/src/components/media/view/feed/results/ViewMediaFeed.tsx
+similarity index 68%
+rename from app/webapp/src/components/media/view/as-feed/results/ViewMediaFeed.tsx
+rename to app/webapp/src/components/media/view/feed/results/ViewMediaFeed.tsx
+index db48ccc..603f7fd 100644
+--- a/app/webapp/src/components/media/view/as-feed/results/ViewMediaFeed.tsx
++++ b/app/webapp/src/components/media/view/feed/results/ViewMediaFeed.tsx
+@@ -1,4 +1,4 @@
+-import React, { FunctionComponent } from "react";
++import React, { FunctionComponent, useLayoutEffect } from "react";
+ import MediaGrid from "~/components/pure/widgets/media-grid/MediaGrid";
+ import { useTheme } from "@material-ui/core";
+ import * as Widget from "~/rgb-commons/types/widgets";
+@@ -8,16 +8,23 @@ import { AppState } from "~/redux/store";
+ import { useMediaHeight } from "./useMediaHeight";
+ 
+ const ViewMediaFeed: FunctionComponent<{}> = () => {
+-  const { mediaIds } = useAppliedFilter();
++  const { mediaIds, appliedFilter } = useAppliedFilter();
+   const theme = useTheme();
+   const mediaMap = useSelector(
+     (state: AppState) => state.userData.media.mediaMap
+   );
+ 
+-  const { targetRowHeight, targetRowHeightThreshold } = useMediaHeight();
++  useLayoutEffect(() => {
++    if (appliedFilter.activeMediaId) {
++      const img = document.getElementById(appliedFilter.activeMediaId)!;
++      img.scrollIntoView();
++      img.style.opacity = "0.5";
++    }
++  }, [appliedFilter.activeMediaId]);
++
++  const { targetRowHeight } = useMediaHeight();
+ 
+   let metadata: Widget.MediaGrid.Metadata = {
+-    makePhotosFullHeight: targetRowHeight === targetRowHeightThreshold,
+     targetRowHeight,
+     containerWidth: window.innerWidth - theme.spacing(2),
+     containerPadding: { top: theme.spacing(2), bottom: 0, right: 0, left: 0 }
+diff --git a/app/webapp/src/components/media/view/as-feed/results/useMediaHeight.ts b/app/webapp/src/components/media/view/feed/results/useMediaHeight.ts
+similarity index 95%
+rename from app/webapp/src/components/media/view/as-feed/results/useMediaHeight.ts
+rename to app/webapp/src/components/media/view/feed/results/useMediaHeight.ts
+index f146cb9..7f2771a 100644
+--- a/app/webapp/src/components/media/view/as-feed/results/useMediaHeight.ts
++++ b/app/webapp/src/components/media/view/feed/results/useMediaHeight.ts
+@@ -20,7 +20,7 @@ export const useMediaHeight = () => {
+   );
+ 
+   if (initialLoadOfPage) {
+-    if (location.pathname === "/explore") {
++    if (location.pathname === "/media/map") {
+       if (isDesktop) {
+         targetRowHeight = 100;
+       } else {
+diff --git a/app/webapp/src/components/profile/stories/edit-story/edit-widget/gigapixel-photo/EditGigapixelPhoto.tsx b/app/webapp/src/components/profile/stories/edit-story/edit-widget/gigapixel-photo/EditGigapixelPhoto.tsx
+index f04aa69..a57bb95 100644
+--- a/app/webapp/src/components/profile/stories/edit-story/edit-widget/gigapixel-photo/EditGigapixelPhoto.tsx
++++ b/app/webapp/src/components/profile/stories/edit-story/edit-widget/gigapixel-photo/EditGigapixelPhoto.tsx
+@@ -46,8 +46,6 @@ const EditGigapixelPhoto: FunctionComponent<Props> = ({
+               media: [mediaMap[id]]
+             };
+ 
+-            console.log(newWidget);
+-
+             newStory.media[id] = {
+               type: MediaType.GIGAPIXEL_PHOTO,
+               ...mediaMap[id]
+diff --git a/app/webapp/src/components/pure/affordances/Logo.tsx b/app/webapp/src/components/pure/affordances/Logo.tsx
+index e1b429c..dee69b5 100644
+--- a/app/webapp/src/components/pure/affordances/Logo.tsx
++++ b/app/webapp/src/components/pure/affordances/Logo.tsx
+@@ -1,7 +1,7 @@
+ import React from "react";
+ import { Tooltip, useTheme } from "@material-ui/core";
+ import logoSrc from "~/components/pure/affordances/img/logo.png";
+-import { useMapPageLayout } from "~/components/media/view/as-map/useMapPageLayout";
++import { useMapPageLayout } from "~/components/media/view/browser/useMapPageLayout";
+ import { useAppliedFilter } from "~/redux/media-filter/useAppliedFilter";
+ 
+ const Logo: React.FunctionComponent<{}> = () => {
+@@ -20,7 +20,7 @@ const Logo: React.FunctionComponent<{}> = () => {
+         onClick={() => {
+           setAppliedFilter({ activeMediaId: undefined });
+           const redirectWindow: any = window;
+-          redirectWindow.location = "/explore";
++          redirectWindow.location = "/media";
+         }}
+       />
+     </Tooltip>
+diff --git a/app/webapp/src/components/pure/widgets/media-grid/Image.tsx b/app/webapp/src/components/pure/widgets/media-grid/Image.tsx
+index 70b03e9..3e72209 100644
+--- a/app/webapp/src/components/pure/widgets/media-grid/Image.tsx
++++ b/app/webapp/src/components/pure/widgets/media-grid/Image.tsx
+@@ -30,6 +30,7 @@ const Image: FunctionComponent<Props> = ({
+ 
+   return (
+     <img
++      id={id}
+       className={getClassName(id)}
+       onClick={() => onClick(id)}
+       data-src={imageSrc}
+diff --git a/app/webapp/src/components/pure/widgets/media-grid/feed/IconActions.tsx b/app/webapp/src/components/pure/widgets/media-grid/feed/IconActions.tsx
+index 201213c..51712e2 100644
+--- a/app/webapp/src/components/pure/widgets/media-grid/feed/IconActions.tsx
++++ b/app/webapp/src/components/pure/widgets/media-grid/feed/IconActions.tsx
+@@ -32,7 +32,7 @@ const IconActions: FunctionComponent<{
+         <RoomIcon
+           fontSize="large"
+           className={classes.icon}
+-          onClick={() => history.push(`/explore?activeMediaId=${photo.id}`)}
++          onClick={() => history.push(`/media/feed?activeMediaId=${photo.id}`)}
+         />
+       </Tooltip>
+     </div>
+diff --git a/app/webapp/src/redux/media-filter/filterMedia.ts b/app/webapp/src/redux/media-filter/filterMedia.ts
+index 000659e..304082e 100644
+--- a/app/webapp/src/redux/media-filter/filterMedia.ts
++++ b/app/webapp/src/redux/media-filter/filterMedia.ts
+@@ -31,10 +31,12 @@ export const filterMedia = (
+     id =>
+       // Reserve 1 star ratings as a way of hiding photos from the media page
+       mediaMap[id].rating > 1 &&
++      // FIXME: Identify pages this negativly impacts
++      //
+       // Force myself to write :)
+-      mediaMap[id].caption &&
++      // mediaMap[id].caption &&
+       // Only show photos with location so map page is cooler
+-      mediaMap[id].locationId &&
++      // mediaMap[id].locationId &&
+       // Photos are currently the only supported media type
+       mediaMap[id].type === MediaType.PHOTO
+   );

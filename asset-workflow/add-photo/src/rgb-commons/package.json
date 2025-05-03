@@ -1,0 +1,8 @@
+{
+  "name": "rgb-commons",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.556.0"
+  }
+}

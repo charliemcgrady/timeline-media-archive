@@ -1,0 +1,438 @@
+{
+  "widgets": [
+    {
+      "type": "text",
+      "id": "widget.1",
+      "metadata": {
+        "html": "<h1>My decade in review</h1><p>It all started with a bang. A flash of white light, and then the universe was created. This has been a decade of ups and downs; trials and tribulations are what define us as human beings.</p>"
+      }
+    },
+    {
+      "type": "media-grid",
+      "id": "widget.2",
+      "metadata": {
+        "mediaIds": [
+          "rgb.photo.v1.4cf7f605-9017-4a3b-9846-a192feeda58c",
+          "rgb.photo.v1.bdbf00dc-fed7-46be-a0ab-e65a882b673b",
+          "rgb.photo.v1.4d88de6a-3c22-4e01-8c10-701af915f271",
+          "rgb.photo.v1.e5267e74-ee8e-4e4f-898d-1dc15d53b894",
+          "rgb.photo.v1.8d753617-208a-459c-9d0e-358052855a96",
+          "rgb.photo.v1.dd0ba7c1-1961-4cef-83c8-22b1921e5f12",
+          "rgb.photo.v1.882d6cdb-267b-41c0-b109-f0da9e65c517",
+          "rgb.photo.v1.8fde8f3a-878b-405d-95b8-b14f54a2593c",
+          "rgb.photo.v1.75682445-699f-42dc-87b7-c35210f531d2",
+          "rgb.photo.v1.84757b0d-d0fd-429b-9cc3-7f36e2920c54",
+          "rgb.photo.v1.1fdf4ba9-34ba-486e-85b4-baa91107dad4",
+          "rgb.photo.v1.62eb35b5-dfa3-4583-9604-e04c573db587",
+          "rgb.photo.v1.17fad905-92f1-4d6b-a34f-e83e95349381",
+          "rgb.photo.v1.eb767b71-85a7-4f23-96ce-203477be1c8f",
+          "rgb.photo.v1.6d706beb-ecf6-4246-b4f3-67853552609f",
+          "rgb.photo.v1.d5e46fbc-f293-4a9d-83bd-4e67a856b2d8",
+          "rgb.photo.v1.cb09a315-058b-4526-8514-d8238faad86b",
+          "rgb.photo.v1.706bd9e7-30d7-456b-b53c-c8ae99dc22c9",
+          "rgb.photo.v1.04282d84-8b56-45cd-9f21-b52c7087fbba",
+          "rgb.photo.v1.f8c04008-6bd8-43eb-88c4-93dba6d89ebe",
+          "rgb.photo.v1.4d35f4b0-827a-4e58-bf78-02aa2f6c942b",
+          "rgb.photo.v1.3747f866-a9b0-4d42-ab83-c1c4b2ee7ac1",
+          "rgb.photo.v1.52c17b01-1838-45fe-a8f4-301e21ac8ce7",
+          "rgb.photo.v1.d2b2b003-2f08-4c05-a98b-91b264cf7c16",
+          "rgb.photo.v1.3b88e896-b697-4bc7-af98-ea2632936ff6",
+          "rgb.photo.v1.37f8054b-c60e-4518-ba91-197fdbbc6807",
+          "rgb.photo.v1.470c4547-a0fd-41bb-a3ad-73064e8235bd",
+          "rgb.photo.v1.a88a2cfd-f0bb-4475-9f43-b7d8d87ae9e0",
+          "rgb.photo.v1.d8058bdc-05e7-4385-a8c0-152b6adb7084",
+          "rgb.photo.v1.1b591bd0-d85e-4628-ba07-422a12d461cb",
+          "rgb.photo.v1.9bc861e7-a90e-46cc-a816-b87775a037ec",
+          "rgb.photo.v1.cdca4072-d99d-49c1-8a97-4b845adb92a5",
+          "rgb.photo.v1.5c2b3292-9809-4e27-af12-484c76c4b722",
+          "rgb.photo.v1.f7399cd6-16a0-408c-a932-06a280fb49a8",
+          "rgb.photo.v1.4c4f65fc-46ff-4d88-804f-a4db66cdafbd",
+          "rgb.photo.v1.4efa4d44-d287-4aec-97e2-eda51fad6c2c",
+          "rgb.photo.v1.82631200-c50d-49ee-9999-57f7575a9693",
+          "rgb.photo.v1.9c87c727-b58b-45ef-989c-3ee67eab0912",
+          "rgb.photo.v1.7aec1658-a9ce-408f-b898-86de8ed2c466",
+          "rgb.photo.v1.8fed28a9-8ecb-49ae-a98e-70e8d957bf64",
+          "rgb.photo.v1.05cf7690-6ea2-432e-b26e-7ce853e7be2c",
+          "rgb.photo.v1.fe1dc94d-123e-4b55-acab-b0cf6609c77f",
+          "rgb.photo.v1.5c97c91c-53c0-4c98-8c5f-7133fd261e61",
+          "rgb.photo.v1.dbe712ae-8ee9-4923-9acb-02ded4fb288b",
+          "rgb.photo.v1.9907f741-373d-4038-a958-f8644865e2fd",
+          "rgb.photo.v1.945d5b02-4f77-43ef-b262-c72156c2d8a9",
+          "rgb.photo.v1.74c698ad-c96a-45b2-9df6-d560335040fe",
+          "rgb.photo.v1.6d0bacfd-eac1-43fd-9838-dabc2e287a38",
+          "rgb.photo.v1.cdf6e468-79bb-4d38-a497-fcb153fa27af",
+          "rgb.photo.v1.04c0c88b-e627-42ac-acea-f252f7f4ee50",
+          "rgb.photo.v1.8242cb21-eceb-4fa7-9267-f63125aeb98a",
+          "rgb.photo.v1.5b1f2035-2ecf-45c0-8405-b5509017ab9d"
+        ]
+      }
+    }
+  ],
+  "media": {
+    "rgb.photo.v1.4cf7f605-9017-4a3b-9846-a192feeda58c": {
+      "id": "rgb.photo.v1.4cf7f605-9017-4a3b-9846-a192feeda58c",
+      "type": "photo",
+      "dominantColorHex": "#0a1a30",
+      "width": 346,
+      "height": 345
+    },
+    "rgb.photo.v1.bdbf00dc-fed7-46be-a0ab-e65a882b673b": {
+      "id": "rgb.photo.v1.bdbf00dc-fed7-46be-a0ab-e65a882b673b",
+      "type": "photo",
+      "dominantColorHex": "#fee47f",
+      "width": 2968,
+      "height": 1980
+    },
+    "rgb.photo.v1.4d88de6a-3c22-4e01-8c10-701af915f271": {
+      "id": "rgb.photo.v1.4d88de6a-3c22-4e01-8c10-701af915f271",
+      "type": "photo",
+      "dominantColorHex": "#5f2557",
+      "width": 1445,
+      "height": 1779
+    },
+    "rgb.photo.v1.e5267e74-ee8e-4e4f-898d-1dc15d53b894": {
+      "id": "rgb.photo.v1.e5267e74-ee8e-4e4f-898d-1dc15d53b894",
+      "type": "photo",
+      "dominantColorHex": "#eac06b",
+      "width": 3148,
+      "height": 2099
+    },
+    "rgb.photo.v1.8d753617-208a-459c-9d0e-358052855a96": {
+      "id": "rgb.photo.v1.8d753617-208a-459c-9d0e-358052855a96",
+      "type": "photo",
+      "dominantColorHex": "#0e1829",
+      "width": 1163,
+      "height": 1454
+    },
+    "rgb.photo.v1.dd0ba7c1-1961-4cef-83c8-22b1921e5f12": {
+      "id": "rgb.photo.v1.dd0ba7c1-1961-4cef-83c8-22b1921e5f12",
+      "type": "photo",
+      "dominantColorHex": "#b39885",
+      "width": 1556,
+      "height": 2334
+    },
+    "rgb.photo.v1.882d6cdb-267b-41c0-b109-f0da9e65c517": {
+      "id": "rgb.photo.v1.882d6cdb-267b-41c0-b109-f0da9e65c517",
+      "type": "photo",
+      "dominantColorHex": "#73d273",
+      "width": 2304,
+      "height": 1536
+    },
+    "rgb.photo.v1.8fde8f3a-878b-405d-95b8-b14f54a2593c": {
+      "id": "rgb.photo.v1.8fde8f3a-878b-405d-95b8-b14f54a2593c",
+      "type": "photo",
+      "dominantColorHex": "#c6f5ef",
+      "width": 6000,
+      "height": 2914
+    },
+    "rgb.photo.v1.75682445-699f-42dc-87b7-c35210f531d2": {
+      "id": "rgb.photo.v1.75682445-699f-42dc-87b7-c35210f531d2",
+      "type": "photo",
+      "dominantColorHex": "#486079",
+      "width": 7360,
+      "height": 2785
+    },
+    "rgb.photo.v1.84757b0d-d0fd-429b-9cc3-7f36e2920c54": {
+      "id": "rgb.photo.v1.84757b0d-d0fd-429b-9cc3-7f36e2920c54",
+      "type": "photo",
+      "dominantColorHex": "#794a3d",
+      "width": 2325,
+      "height": 1837
+    },
+    "rgb.photo.v1.1fdf4ba9-34ba-486e-85b4-baa91107dad4": {
+      "id": "rgb.photo.v1.1fdf4ba9-34ba-486e-85b4-baa91107dad4",
+      "type": "photo",
+      "dominantColorHex": "#dcdce5",
+      "width": 3200,
+      "height": 4000
+    },
+    "rgb.photo.v1.62eb35b5-dfa3-4583-9604-e04c573db587": {
+      "id": "rgb.photo.v1.62eb35b5-dfa3-4583-9604-e04c573db587",
+      "type": "photo",
+      "dominantColorHex": "#48230c",
+      "width": 3560,
+      "height": 2848
+    },
+    "rgb.photo.v1.17fad905-92f1-4d6b-a34f-e83e95349381": {
+      "id": "rgb.photo.v1.17fad905-92f1-4d6b-a34f-e83e95349381",
+      "type": "photo",
+      "dominantColorHex": "#cb5c58",
+      "width": 2924,
+      "height": 3655
+    },
+    "rgb.photo.v1.eb767b71-85a7-4f23-96ce-203477be1c8f": {
+      "id": "rgb.photo.v1.eb767b71-85a7-4f23-96ce-203477be1c8f",
+      "type": "photo",
+      "dominantColorHex": "#492b19",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.6d706beb-ecf6-4246-b4f3-67853552609f": {
+      "id": "rgb.photo.v1.6d706beb-ecf6-4246-b4f3-67853552609f",
+      "type": "photo",
+      "dominantColorHex": "#db8676",
+      "width": 2369,
+      "height": 2848
+    },
+    "rgb.photo.v1.d5e46fbc-f293-4a9d-83bd-4e67a856b2d8": {
+      "id": "rgb.photo.v1.d5e46fbc-f293-4a9d-83bd-4e67a856b2d8",
+      "type": "photo",
+      "dominantColorHex": "#9a9a9a",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.cb09a315-058b-4526-8514-d8238faad86b": {
+      "id": "rgb.photo.v1.cb09a315-058b-4526-8514-d8238faad86b",
+      "type": "photo",
+      "dominantColorHex": "#5c4d50",
+      "width": 2848,
+      "height": 4272
+    },
+    "rgb.photo.v1.706bd9e7-30d7-456b-b53c-c8ae99dc22c9": {
+      "id": "rgb.photo.v1.706bd9e7-30d7-456b-b53c-c8ae99dc22c9",
+      "type": "photo",
+      "dominantColorHex": "#a19d9f",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.04282d84-8b56-45cd-9f21-b52c7087fbba": {
+      "id": "rgb.photo.v1.04282d84-8b56-45cd-9f21-b52c7087fbba",
+      "type": "photo",
+      "dominantColorHex": "#48584a",
+      "width": 4104,
+      "height": 2736
+    },
+    "rgb.photo.v1.f8c04008-6bd8-43eb-88c4-93dba6d89ebe": {
+      "id": "rgb.photo.v1.f8c04008-6bd8-43eb-88c4-93dba6d89ebe",
+      "type": "photo",
+      "dominantColorHex": "#767676",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.4d35f4b0-827a-4e58-bf78-02aa2f6c942b": {
+      "id": "rgb.photo.v1.4d35f4b0-827a-4e58-bf78-02aa2f6c942b",
+      "type": "photo",
+      "dominantColorHex": "#181818",
+      "width": 2848,
+      "height": 4272
+    },
+    "rgb.photo.v1.3747f866-a9b0-4d42-ab83-c1c4b2ee7ac1": {
+      "id": "rgb.photo.v1.3747f866-a9b0-4d42-ab83-c1c4b2ee7ac1",
+      "type": "photo",
+      "dominantColorHex": "#557b42",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.52c17b01-1838-45fe-a8f4-301e21ac8ce7": {
+      "id": "rgb.photo.v1.52c17b01-1838-45fe-a8f4-301e21ac8ce7",
+      "type": "photo",
+      "dominantColorHex": "#4b5351",
+      "width": 4016,
+      "height": 2677
+    },
+    "rgb.photo.v1.d2b2b003-2f08-4c05-a98b-91b264cf7c16": {
+      "id": "rgb.photo.v1.d2b2b003-2f08-4c05-a98b-91b264cf7c16",
+      "type": "photo",
+      "dominantColorHex": "#09154a",
+      "width": 2000,
+      "height": 2079
+    },
+    "rgb.photo.v1.3b88e896-b697-4bc7-af98-ea2632936ff6": {
+      "id": "rgb.photo.v1.3b88e896-b697-4bc7-af98-ea2632936ff6",
+      "type": "photo",
+      "dominantColorHex": "#dadff7",
+      "width": 2448,
+      "height": 3264
+    },
+    "rgb.photo.v1.37f8054b-c60e-4518-ba91-197fdbbc6807": {
+      "id": "rgb.photo.v1.37f8054b-c60e-4518-ba91-197fdbbc6807",
+      "type": "photo",
+      "dominantColorHex": "#dfc2a7",
+      "width": 3234,
+      "height": 2587
+    },
+    "rgb.photo.v1.470c4547-a0fd-41bb-a3ad-73064e8235bd": {
+      "id": "rgb.photo.v1.470c4547-a0fd-41bb-a3ad-73064e8235bd",
+      "type": "photo",
+      "dominantColorHex": "#1a2032",
+      "width": 6000,
+      "height": 4000
+    },
+    "rgb.photo.v1.a88a2cfd-f0bb-4475-9f43-b7d8d87ae9e0": {
+      "id": "rgb.photo.v1.a88a2cfd-f0bb-4475-9f43-b7d8d87ae9e0",
+      "type": "photo",
+      "dominantColorHex": "#907a26",
+      "width": 2000,
+      "height": 2000
+    },
+    "rgb.photo.v1.d8058bdc-05e7-4385-a8c0-152b6adb7084": {
+      "id": "rgb.photo.v1.d8058bdc-05e7-4385-a8c0-152b6adb7084",
+      "type": "photo",
+      "dominantColorHex": "#7f0404",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.1b591bd0-d85e-4628-ba07-422a12d461cb": {
+      "id": "rgb.photo.v1.1b591bd0-d85e-4628-ba07-422a12d461cb",
+      "type": "photo",
+      "dominantColorHex": "#86743d",
+      "width": 3560,
+      "height": 2848
+    },
+    "rgb.photo.v1.9bc861e7-a90e-46cc-a816-b87775a037ec": {
+      "id": "rgb.photo.v1.9bc861e7-a90e-46cc-a816-b87775a037ec",
+      "type": "photo",
+      "dominantColorHex": "#43311d",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.cdca4072-d99d-49c1-8a97-4b845adb92a5": {
+      "id": "rgb.photo.v1.cdca4072-d99d-49c1-8a97-4b845adb92a5",
+      "type": "photo",
+      "dominantColorHex": "#dbe79d",
+      "width": 4104,
+      "height": 2736
+    },
+    "rgb.photo.v1.5c2b3292-9809-4e27-af12-484c76c4b722": {
+      "id": "rgb.photo.v1.5c2b3292-9809-4e27-af12-484c76c4b722",
+      "type": "photo",
+      "dominantColorHex": "#6179a8",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.f7399cd6-16a0-408c-a932-06a280fb49a8": {
+      "id": "rgb.photo.v1.f7399cd6-16a0-408c-a932-06a280fb49a8",
+      "type": "photo",
+      "dominantColorHex": "#eaeaea",
+      "width": 2736,
+      "height": 4104
+    },
+    "rgb.photo.v1.4c4f65fc-46ff-4d88-804f-a4db66cdafbd": {
+      "id": "rgb.photo.v1.4c4f65fc-46ff-4d88-804f-a4db66cdafbd",
+      "type": "photo",
+      "dominantColorHex": "#3c3c3c",
+      "width": 6000,
+      "height": 4000
+    },
+    "rgb.photo.v1.4efa4d44-d287-4aec-97e2-eda51fad6c2c": {
+      "id": "rgb.photo.v1.4efa4d44-d287-4aec-97e2-eda51fad6c2c",
+      "type": "photo",
+      "dominantColorHex": "#e7a7bb",
+      "width": 4000,
+      "height": 6000
+    },
+    "rgb.photo.v1.82631200-c50d-49ee-9999-57f7575a9693": {
+      "id": "rgb.photo.v1.82631200-c50d-49ee-9999-57f7575a9693",
+      "type": "photo",
+      "dominantColorHex": "#bc5f1f",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.9c87c727-b58b-45ef-989c-3ee67eab0912": {
+      "id": "rgb.photo.v1.9c87c727-b58b-45ef-989c-3ee67eab0912",
+      "type": "photo",
+      "dominantColorHex": "#bcc7cf",
+      "width": 4935,
+      "height": 3290
+    },
+    "rgb.photo.v1.7aec1658-a9ce-408f-b898-86de8ed2c466": {
+      "id": "rgb.photo.v1.7aec1658-a9ce-408f-b898-86de8ed2c466",
+      "type": "photo",
+      "dominantColorHex": "#131313",
+      "width": 4000,
+      "height": 4000
+    },
+    "rgb.photo.v1.8fed28a9-8ecb-49ae-a98e-70e8d957bf64": {
+      "id": "rgb.photo.v1.8fed28a9-8ecb-49ae-a98e-70e8d957bf64",
+      "type": "photo",
+      "dominantColorHex": "#dc3760",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.05cf7690-6ea2-432e-b26e-7ce853e7be2c": {
+      "id": "rgb.photo.v1.05cf7690-6ea2-432e-b26e-7ce853e7be2c",
+      "type": "photo",
+      "dominantColorHex": "#1f1f23",
+      "width": 6000,
+      "height": 4000
+    },
+    "rgb.photo.v1.fe1dc94d-123e-4b55-acab-b0cf6609c77f": {
+      "id": "rgb.photo.v1.fe1dc94d-123e-4b55-acab-b0cf6609c77f",
+      "type": "photo",
+      "dominantColorHex": "#5f606d",
+      "width": 4000,
+      "height": 5333
+    },
+    "rgb.photo.v1.5c97c91c-53c0-4c98-8c5f-7133fd261e61": {
+      "id": "rgb.photo.v1.5c97c91c-53c0-4c98-8c5f-7133fd261e61",
+      "type": "photo",
+      "dominantColorHex": "#41444d",
+      "width": 6000,
+      "height": 4000
+    },
+    "rgb.photo.v1.dbe712ae-8ee9-4923-9acb-02ded4fb288b": {
+      "id": "rgb.photo.v1.dbe712ae-8ee9-4923-9acb-02ded4fb288b",
+      "type": "photo",
+      "dominantColorHex": "#8e4336",
+      "width": 3264,
+      "height": 2448
+    },
+    "rgb.photo.v1.9907f741-373d-4038-a958-f8644865e2fd": {
+      "id": "rgb.photo.v1.9907f741-373d-4038-a958-f8644865e2fd",
+      "type": "photo",
+      "dominantColorHex": "#333333",
+      "width": 4000,
+      "height": 4000
+    },
+    "rgb.photo.v1.945d5b02-4f77-43ef-b262-c72156c2d8a9": {
+      "id": "rgb.photo.v1.945d5b02-4f77-43ef-b262-c72156c2d8a9",
+      "type": "photo",
+      "dominantColorHex": "#0f0f0f",
+      "width": 4000,
+      "height": 4000
+    },
+    "rgb.photo.v1.74c698ad-c96a-45b2-9df6-d560335040fe": {
+      "id": "rgb.photo.v1.74c698ad-c96a-45b2-9df6-d560335040fe",
+      "type": "photo",
+      "dominantColorHex": "#141414",
+      "width": 6000,
+      "height": 4000
+    },
+    "rgb.photo.v1.6d0bacfd-eac1-43fd-9838-dabc2e287a38": {
+      "id": "rgb.photo.v1.6d0bacfd-eac1-43fd-9838-dabc2e287a38",
+      "type": "photo",
+      "dominantColorHex": "#191e24",
+      "width": 6000,
+      "height": 4000
+    },
+    "rgb.photo.v1.cdf6e468-79bb-4d38-a497-fcb153fa27af": {
+      "id": "rgb.photo.v1.cdf6e468-79bb-4d38-a497-fcb153fa27af",
+      "type": "photo",
+      "dominantColorHex": "#635670",
+      "width": 7952,
+      "height": 4473
+    },
+    "rgb.photo.v1.04c0c88b-e627-42ac-acea-f252f7f4ee50": {
+      "id": "rgb.photo.v1.04c0c88b-e627-42ac-acea-f252f7f4ee50",
+      "type": "photo",
+      "dominantColorHex": "#d0e1f3",
+      "width": 4864,
+      "height": 7292
+    },
+    "rgb.photo.v1.8242cb21-eceb-4fa7-9267-f63125aeb98a": {
+      "id": "rgb.photo.v1.8242cb21-eceb-4fa7-9267-f63125aeb98a",
+      "type": "photo",
+      "dominantColorHex": "#aaa8a5",
+      "width": 7952,
+      "height": 5304
+    },
+    "rgb.photo.v1.5b1f2035-2ecf-45c0-8405-b5509017ab9d": {
+      "id": "rgb.photo.v1.5b1f2035-2ecf-45c0-8405-b5509017ab9d",
+      "type": "photo",
+      "dominantColorHex": "#303b55",
+      "width": 7952,
+      "height": 5304
+    }
+  },
+  "name": "eldorado"
+}

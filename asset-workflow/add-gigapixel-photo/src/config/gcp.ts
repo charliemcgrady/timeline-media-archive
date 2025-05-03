@@ -1,0 +1,1 @@
+export const photosBucket = process.env.GCP_PHOTOS_BUCKET;
